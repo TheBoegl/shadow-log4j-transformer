@@ -43,18 +43,18 @@ class Log4j2PluginsFileTransformer implements Transformer {
     }
 
     @Override
-    void transform(String path, InputStream is, List<Relocator> relocators) {
+    void transform(TransformerContext context) {
         final File tempFile = File.createTempFile("Log4j2Plugins", "dat")
         FileOutputStream fos = new FileOutputStream(tempFile)
         try {
-            IOUtils.copyLarge(is, fos)
+            IOUtils.copyLarge(context.is, fos)
         } finally {
             IOUtils.closeQuietly(fos)
         }
         tempFiles.add(tempFile)
 
         if (this.relocators != null) {
-            this.relocators.addAll(relocators)
+            this.relocators.addAll(context.relocators)
         }
     }
 
