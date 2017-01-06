@@ -29,7 +29,7 @@ repositories {
 group 'de.sebastianboegl.gradle.plugins'
 
 // no real semantic versioning (the MAJOR version number correspond to the MAJOR shadow plugin version number)
-version "${shadowVersion}.0.0"
+version "${shadowVersion}.0.1"
 
 dependencies {
     compile gradleApi()

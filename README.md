@@ -10,7 +10,7 @@ The version numbering scheme is has the following format: `SHADOW_MAJOR`.`MINOR`
 
 At the time of writing, the latest shadow plugin version was `1.2.4`. Therefore, you should use this plugin's version starting with `1`.
 
-The latest plugin version is `1.0.0`. It requires at least __Java 7__.
+The latest plugin version is `1.0.1`. It requires at least __Java 7__.
 
 ## Adding the plugin to your project
 
@@ -28,7 +28,7 @@ buildscript {
   }
   dependencies {
     classpath "com.github.jengelman.gradle.plugins:shadow:1.2.4"
-    classpath "de.sebastianboegl.gradle.plugins:shadow-log4j-transformer:1.0.0"
+    classpath "de.sebastianboegl.gradle.plugins:shadow-log4j-transformer:1.0.1"
   }
 }
 
@@ -41,7 +41,7 @@ The order of the plugins doesn't matter:
 ```gradle
 plugins {
   id "com.github.johnrengelman.shadow" version "1.2.4"
-  id "de.sebastianboegl.shadow.transformer.log4j" version "1.0.0"
+  id "de.sebastianboegl.shadow.transformer.log4j" version "1.0.1"
 }
 ```
 

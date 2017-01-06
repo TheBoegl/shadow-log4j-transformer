@@ -32,9 +32,11 @@ class Log4jTransformerPlugin implements Plugin<Project> {
     void apply(Project project) {
         project.plugins.apply(ShadowPlugin)
         logger.debug("applied ShadowPlugin")
-        project.tasks.withType(ShadowJar).each { shadow ->
-            shadow.transform(new Log4j2PluginsFileTransformer())
-            logger.debug("add Log4j2PluginsFileTransformer to the task {}", shadow.name)
+        project.afterEvaluate {
+            project.tasks.withType(ShadowJar).each { shadow ->
+                shadow.transform(new Log4j2PluginsFileTransformer())
+                logger.debug("add Log4j2PluginsFileTransformer to the task {}", shadow.name)
+            }
         }
     }
 }
