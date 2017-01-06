@@ -1,0 +1,116 @@
+plugins {
+    id "com.gradle.plugin-publish" version "0.9.7"
+    id "com.jfrog.bintray" version "1.7.3"
+    id "nu.studer.plugindev" version "1.0.6"
+}
+
+apply plugin: 'groovy'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'maven-publish'
+
+// Write the plugin's classpath to a file to share with the tests.
+task createClasspathManifest {
+    def outputDir = file("$buildDir/$name")
+
+    inputs.files sourceSets.main.runtimeClasspath
+    outputs.dir outputDir
+
+    doLast {
+        outputDir.mkdirs()
+        file("$outputDir/plugin-classpath.txt").text = sourceSets.main.runtimeClasspath.join("\n")
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+group 'de.sebastianboegl.gradle.plugins'
+
+// no real semantic versioning (the MAJOR version number correspond to the MAJOR shadow plugin version number)
+version "${shadowVersion}.0.0"
+
+dependencies {
+    compile gradleApi()
+    compile localGroovy()
+    compile(group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.+')
+    compile "com.github.jengelman.gradle.plugins:shadow:${shadowVersion}.+"
+
+    testCompile gradleTestKit()
+    testCompile ('org.spockframework:spock-core:1.0-groovy-2.4') {
+        exclude module: 'junit-dep'
+        exclude module: 'groovy-all'
+    }
+
+    // Add the classpath file to the test runtime classpath.
+    testRuntime files(createClasspathManifest)
+}
+
+
+configurations.all {
+    resolutionStrategy {
+        force 'org.codehaus.groovy:groovy-all:2.4.4'
+    }
+}
+
+
+sourceCompatibility = JavaVersion.VERSION_1_7
+targetCompatibility = JavaVersion.VERSION_1_7
+
+idea {
+    project {
+        languageLevel = '1.7'
+    }
+}
+
+plugindev {
+    pluginId 'de.sebastianboegl.shadow.transformer.log4j'
+    pluginName 'shadow-log4j-transformer'
+    pluginImplementationClass 'de.sebastianboegl.gradle.plugins.Log4jTransformerPlugin'
+    pluginDescription 'A shadow transformer implementation for log4j to concatenate Log4j2Plugins.dat files.'
+    pluginLicenses 'Apache-2.0'
+    pluginTags 'gradle', 'shadow', 'transformer', 'log4j', 'log4j2'
+    authorId 'theboegl'
+    authorName 'Sebastian Bögl'
+    authorEmail 'info@sebastianboegl.de'
+    projectUrl 'https://github.com/TheBoegl/shadow-log4j-transformer'
+    projectInceptionYear '2017'
+    done() // do not omit this
+}
+
+pluginBundle {
+    website = 'https://github.com/TheBoegl/shadow-log4j-transformer'
+    vcsUrl = 'https://github.com/TheBoegl/shadow-log4j-transformer'
+    description = 'A shadow transformer implementation for log4j to concatenate Log4j2Plugins.dat files.'
+    tags = ['shadow', 'transformer', 'log4j', 'log4j2']
+
+    plugins {
+        launch4j {
+            id = 'de.sebastianboegl.shadow.transformer.log4j'
+            displayName = 'launch4j gradle plugin'
+        }
+    }
+}
+
+bintray {
+    pkg {
+        repo = 'gradle-plugins'
+        version {
+            vcsTag = "v${project.version}"
+        }
+    }
+}
+
+publishPlugins.dependsOn build
+
+//createReleaseTag.dependsOn publish
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '3.2.1'
+    distributionType = Wrapper.DistributionType.ALL
+}
+
+tasks.withType(Test) {
+    systemProperty 'org.gradle.testkit.debug', System.getProperty('org.gradle.testkit.debug', 'false')
+}
