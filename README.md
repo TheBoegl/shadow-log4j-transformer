@@ -10,7 +10,11 @@ The version numbering scheme is has the following format: `SHADOW_MAJOR`.`MINOR`
 
 At the time of writing, the latest shadow plugin version was `1.2.4`. Therefore, you should use this plugin's version starting with `1`.
 
+## Latest Version
+[![Download](https://api.bintray.com/packages/theboegl/gradle-plugins/shadow-log4j-transformer/images/download.svg) ](https://bintray.com/theboegl/gradle-plugins/shadow-log4j-transformer/_latestVersion)<br>
 The latest plugin version is `1.0.1`. It requires at least __Java 7__.
+
+You can get version notifications on bintray:<br>[![Get automatic notifications about new "shadow-log4j-transformer" versions](https://www.bintray.com/docs/images/bintray_badge_color.png)](https://bintray.com/theboegl/gradle-plugins/shadow-log4j-transformer?source=watch)
 
 ## Adding the plugin to your project
 
