@@ -20,6 +20,28 @@ You can get version notifications on bintray:<br>[![Get automatic notifications 
 
 This plugin must work with the __shadow plugin__ and will use __Log4j 2__.
 
+You can use this plugin as library or gradle plugin.
+
+### Usage as library
+
+The plugin can be used as library to provide the Log4j 2 transformer.
+This is as easy as shown below:
+
+```gradle
+buildscript {
+  dependencies {
+    classpath "com.github.jengelman.gradle.plugins:shadow:1.2.4"
+    classpath 'de.sebastianboegl.gradle.plugins:shadow-log4j-transformer:1.0.1'
+  }
+}
+
+apply plugin: 'com.github.johnrengelman.shadow'
+
+shadowJar {
+  transform(de.sebastianboegl.gradle.plugins.shadow.transformers.Log4j2PluginsFileTransformer)
+}
+```
+
 ### Using the `apply` method
 The plugin applies the latest version of the shadow plugin or the one in the dependency block, hence, you don't have to apply the shadow plugin.
 
