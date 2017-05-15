@@ -16,15 +16,17 @@
 
 package de.sebastianboegl.gradle.plugins.shadow.transformers
 
+import com.github.jengelman.gradle.plugins.shadow.relocation.RelocateClassContext
 import com.github.jengelman.gradle.plugins.shadow.relocation.Relocator
 import com.github.jengelman.gradle.plugins.shadow.transformers.Transformer
-import org.apache.commons.io.IOUtils
-import org.apache.commons.io.output.CloseShieldOutputStream
+import com.github.jengelman.gradle.plugins.shadow.transformers.TransformerContext
 import org.apache.logging.log4j.core.config.plugins.processor.PluginCache
 import org.apache.logging.log4j.core.config.plugins.processor.PluginEntry
-import org.apache.tools.zip.ZipEntry
-import org.apache.tools.zip.ZipOutputStream
 import org.gradle.api.file.FileTreeElement
+import shadow.org.apache.commons.io.IOUtils
+import shadow.org.apache.commons.io.output.CloseShieldOutputStream
+import shadow.org.apache.tools.zip.ZipEntry
+import shadow.org.apache.tools.zip.ZipOutputStream
 
 import static org.apache.logging.log4j.core.config.plugins.processor.PluginProcessor.PLUGIN_CACHE_FILE
 
@@ -82,21 +84,20 @@ class Log4j2PluginsFileTransformer implements Transformer {
         for (Map.Entry<String, Map<String, PluginEntry>> categoryEntry : aggregator.getAllCategories().entrySet()) {
             for (Map.Entry<String, PluginEntry> pluginMapEntry : categoryEntry.getValue().entrySet()) {
                 PluginEntry pluginEntry = pluginMapEntry.getValue()
-                String originalClassName = pluginEntry.getClassName()
-
-                Relocator matchingRelocator = findFirstMatchingRelocator(originalClassName, relocators)
+                def context = RelocateClassContext.builder().className(pluginEntry.getClassName()).build()
+                Relocator matchingRelocator = findFirstMatchingRelocator(context, relocators)
 
                 if (matchingRelocator != null) {
-                    String newClassName = matchingRelocator.relocateClass(originalClassName)
+                    String newClassName = matchingRelocator.relocateClass(context)
                     pluginEntry.setClassName(newClassName)
                 }
             }
         }
     }
 
-    private static Relocator findFirstMatchingRelocator(String originalClassName, List<Relocator> relocators) {
+    private static Relocator findFirstMatchingRelocator(RelocateClassContext context, List<Relocator> relocators) {
         for (Relocator relocator : relocators) {
-            if (relocator.canRelocateClass(originalClassName)) {
+            if (relocator.canRelocateClass(context)) {
                 return relocator
             }
         }
