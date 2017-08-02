@@ -2,12 +2,11 @@ plugins {
     id "com.gradle.plugin-publish" version "0.9.7"
     id "com.jfrog.bintray" version "1.7.3"
     id "nu.studer.plugindev" version "1.0.6"
+    id 'groovy'
+    id 'eclipse'
+    id 'idea'
+    id 'maven-publish'
 }
-
-apply plugin: 'groovy'
-apply plugin: 'eclipse'
-apply plugin: 'idea'
-apply plugin: 'maven-publish'
 
 // Write the plugin's classpath to a file to share with the tests.
 task createClasspathManifest {
@@ -86,9 +85,9 @@ pluginBundle {
     tags = ['shadow', 'transformer', 'log4j', 'log4j2']
 
     plugins {
-        launch4j {
+        log4jShadowTransformer {
             id = 'de.sebastianboegl.shadow.transformer.log4j'
-            displayName = 'launch4j gradle plugin'
+            displayName = 'shadow transformer plugin for log4j'
         }
     }
 }
