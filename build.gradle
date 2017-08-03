@@ -6,6 +6,7 @@ plugins {
     id 'eclipse'
     id 'idea'
     id 'maven-publish'
+    id 'java-gradle-plugin'
 }
 
 // Write the plugin's classpath to a file to share with the tests.
@@ -89,6 +90,21 @@ pluginBundle {
             id = 'de.sebastianboegl.shadow.transformer.log4j'
             displayName = 'shadow transformer plugin for log4j'
         }
+    }
+}
+
+gradlePlugin {
+    plugins {
+        log4jShadowTransformer {
+            id = 'de.sebastianboegl.shadow.transformer.log4j'
+            implementationClass = 'de.sebastianboegl.gradle.plugins.Log4jTransformerPlugin'
+        }
+    }
+}
+
+publishing.repositories {
+    maven {
+        url "maven-repo"
     }
 }
 
