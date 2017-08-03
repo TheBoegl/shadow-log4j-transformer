@@ -1,4 +1,7 @@
 # Created by .ignore support plugin (hsz.mobi)
+
+maven-repo/
+
 ### Java template
 *.class
 
