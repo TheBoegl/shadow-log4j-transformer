@@ -1,4 +1,4 @@
-# Log4j 2 Transformer for Gradle Shadow Plugin
+# Log4j 2 Transformer implementation for Gradle Shadow Plugin
 
 A [shadow plugin](https://github.com/johnrengelman/shadow) transformer implementation for log4j to concatenate Log4j2Plugins.dat files.
 
@@ -8,30 +8,31 @@ This is a port of the [maven-shaded-log4j-transformer](https://github.com/edwgiz
 The version numbering scheme is has the following format: `SHADOW_MAJOR`.`MINOR`.`PATCH`. This is no real semantic versioning because the SHADOW_MAJOR version number correspond to the MAJOR shadow plugin version number.
 
 
-At the time of writing, the latest shadow plugin version was `2.0.0`. Therefore, you should use this plugin's version starting with `2`.
-If you are stuck at version `1.2.4` use the plugin version starting with `1`.
+At the time of writing, the latest shadow plugin version was `2.0.2`. Therefore, you should use this library's version starting with `2`.
+If you are stuck at version `1.2.4` use the library version starting with `1`.
 
 ## Latest Version
 [![Download](https://api.bintray.com/packages/theboegl/gradle-plugins/shadow-log4j-transformer/images/download.svg) ](https://bintray.com/theboegl/gradle-plugins/shadow-log4j-transformer/_latestVersion)<br>
-The latest plugin version is `2.1.1`. It requires at least __Java 7__.
+The latest library version is `2.1.1`. It requires at least __Java 7__.
 
 You can get version notifications on bintray:<br>[![Get automatic notifications about new "shadow-log4j-transformer" versions](https://www.bintray.com/docs/images/bintray_badge_color.png)](https://bintray.com/theboegl/gradle-plugins/shadow-log4j-transformer?source=watch)
 
-## Adding the plugin to your project
+## Adding the transformer implementation to your project
 
-This plugin must work with the __shadow plugin__ and will use __Log4j 2__.
+This implementation must work with the __shadow plugin__ and will use __Log4j 2__.
 
-You can use this plugin as library or gradle plugin.
+You should use this implementation as library. 
+You may use it as gradle plugin though this is not recommended anymore due to issues (e.g. #2, #3 and, #5).
 
 ### Usage as library
 
-The plugin can be used as library to provide the Log4j 2 transformer.
+The implementation should be used as library to provide the Log4j 2 transformer.
 This is as easy as shown below:
 
 ```gradle
 buildscript {
   dependencies {
-    classpath "com.github.jengelman.gradle.plugins:shadow:2.0.0"
+    classpath "com.github.jengelman.gradle.plugins:shadow:2.0.2"
     classpath 'de.sebastianboegl.gradle.plugins:shadow-log4j-transformer:2.1.1'
   }
 }
@@ -43,7 +44,7 @@ shadowJar {
 }
 ```
 
-### Using the `apply` method
+### Not recommended: Using the `apply` method
 The plugin applies the latest version of the shadow plugin or the one in the dependency block, hence, you don't have to apply the shadow plugin.
 
 ```gradle
@@ -54,7 +55,7 @@ buildscript {
     }
   }
   dependencies {
-    classpath "com.github.jengelman.gradle.plugins:shadow:2.0.0"
+    classpath "com.github.jengelman.gradle.plugins:shadow:2.0.2"
     classpath "de.sebastianboegl.gradle.plugins:shadow-log4j-transformer:2.1.1"
   }
 }
@@ -62,12 +63,12 @@ buildscript {
 apply plugin: "de.sebastianboegl.shadow.transformer.log4j"
 ```
 
-### Using the Gradle plugin DSL
+### Not recommended: Using the Gradle plugin DSL
 The order of the plugins doesn't matter:
 
 ```gradle
 plugins {
-  id "com.github.johnrengelman.shadow" version "2.0.0"
+  id "com.github.johnrengelman.shadow" version "2.0.2"
   id "de.sebastianboegl.shadow.transformer.log4j" version "2.1.1"
 }
 ```
