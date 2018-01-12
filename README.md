@@ -22,7 +22,7 @@ You can get version notifications on bintray:<br>[![Get automatic notifications 
 This implementation must work with the __shadow plugin__ and will use __Log4j 2__.
 
 You should use this implementation as library. 
-You may use it as gradle plugin though this is not recommended anymore due to issues (e.g. #2, #3 and, #5).
+You may use it as gradle plugin though this is not recommended anymore due to issues (e.g. [#2](https://github.com/TheBoegl/shadow-log4j-transformer/issues/2), [#3](https://github.com/TheBoegl/shadow-log4j-transformer/issues/3) and, [#5](https://github.com/TheBoegl/shadow-log4j-transformer/issues/5)).
 
 ### Usage as library
 
