@@ -8,7 +8,7 @@ This is a port of the [maven-shaded-log4j-transformer](https://github.com/edwgiz
 The version numbering scheme is has the following format: `SHADOW_MAJOR`.`MINOR`.`PATCH`. This is no real semantic versioning because the SHADOW_MAJOR version number correspond to the MAJOR shadow plugin version number.
 
 
-At the time of writing, the latest shadow plugin version was `2.0.0`. Therefore, you should use this plugin's version starting with `2`.
+At the time of writing, the latest shadow plugin version was `2.0.2`. Therefore, you should use this plugin's version starting with `2`.
 If you are stuck at version `1.2.4` use the plugin version starting with `1`.
 
 ## Latest Version
@@ -31,7 +31,7 @@ This is as easy as shown below:
 ```gradle
 buildscript {
   dependencies {
-    classpath "com.github.jengelman.gradle.plugins:shadow:2.0.0"
+    classpath "com.github.jengelman.gradle.plugins:shadow:2.0.2"
     classpath 'de.sebastianboegl.gradle.plugins:shadow-log4j-transformer:2.1.1'
   }
 }
@@ -54,7 +54,7 @@ buildscript {
     }
   }
   dependencies {
-    classpath "com.github.jengelman.gradle.plugins:shadow:2.0.0"
+    classpath "com.github.jengelman.gradle.plugins:shadow:2.0.2"
     classpath "de.sebastianboegl.gradle.plugins:shadow-log4j-transformer:2.1.1"
   }
 }
@@ -67,7 +67,7 @@ The order of the plugins doesn't matter:
 
 ```gradle
 plugins {
-  id "com.github.johnrengelman.shadow" version "2.0.0"
+  id "com.github.johnrengelman.shadow" version "2.0.2"
   id "de.sebastianboegl.shadow.transformer.log4j" version "2.1.1"
 }
 ```
