@@ -32,8 +32,8 @@ group 'de.sebastianboegl.gradle.plugins'
 version "${majorShadowVersion}.1.1"
 
 def shadowVersions = [
-    '1': '1.2.4',
-    '2': '2.0.2'
+    '1': '1.2.3',
+    '2': '2.0.0'
 ]
 def shadowVersion = shadowVersions[majorShadowVersion]
 
