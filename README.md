@@ -13,7 +13,7 @@ If you are stuck at version `1.2.4` use the library version starting with `1`.
 
 ## Latest Version
 [![Download](https://api.bintray.com/packages/theboegl/gradle-plugins/shadow-log4j-transformer/images/download.svg) ](https://bintray.com/theboegl/gradle-plugins/shadow-log4j-transformer/_latestVersion)<br>
-The latest library version is `2.1.1`. It requires at least __Java 7__.
+The latest library version is `2.2.0`. It requires at least __Java 7__.
 
 You can get version notifications on bintray:<br>[![Get automatic notifications about new "shadow-log4j-transformer" versions](https://www.bintray.com/docs/images/bintray_badge_color.png)](https://bintray.com/theboegl/gradle-plugins/shadow-log4j-transformer?source=watch)
 
@@ -33,7 +33,7 @@ This is as easy as shown below:
 buildscript {
   dependencies {
     classpath "com.github.jengelman.gradle.plugins:shadow:2.0.2"
-    classpath 'de.sebastianboegl.gradle.plugins:shadow-log4j-transformer:2.1.1'
+    classpath 'de.sebastianboegl.gradle.plugins:shadow-log4j-transformer:2.2.0'
   }
 }
 
@@ -56,7 +56,7 @@ buildscript {
   }
   dependencies {
     classpath "com.github.jengelman.gradle.plugins:shadow:2.0.2"
-    classpath "de.sebastianboegl.gradle.plugins:shadow-log4j-transformer:2.1.1"
+    classpath "de.sebastianboegl.gradle.plugins:shadow-log4j-transformer:2.2.0"
   }
 }
 
@@ -69,7 +69,7 @@ The order of the plugins doesn't matter:
 ```gradle
 plugins {
   id "com.github.johnrengelman.shadow" version "2.0.2"
-  id "de.sebastianboegl.shadow.transformer.log4j" version "2.1.1"
+  id "de.sebastianboegl.shadow.transformer.log4j" version "2.2.0"
 }
 ```
 
