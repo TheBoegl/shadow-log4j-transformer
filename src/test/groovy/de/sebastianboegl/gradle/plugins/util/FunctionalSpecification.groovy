@@ -45,13 +45,6 @@ class FunctionalSpecification extends Specification {
         }
 
         pluginClasspath = pluginClasspathResource.readLines().collect { new File(it) }
-
-        buildFile << """
-            plugins {
-                id 'java'
-                id 'de.sebastianboegl.shadow.transformer.log4j'
-            }
-        """
     }
 
     protected BuildResult build(String... arguments) {

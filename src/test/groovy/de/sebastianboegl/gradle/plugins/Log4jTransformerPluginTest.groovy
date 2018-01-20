@@ -22,6 +22,14 @@ import de.sebastianboegl.gradle.plugins.util.FunctionalSpecification
 import static org.gradle.testkit.runner.TaskOutcome.SUCCESS
 
 class Log4jTransformerPluginTest extends FunctionalSpecification {
+    def setup() {
+        buildFile << """
+            plugins {
+                id 'java'
+                id 'de.sebastianboegl.shadow.transformer.log4j'
+            }
+        """
+    }
 
     def 'Applying the plugin applies the shadow plugin'() {
         given:
