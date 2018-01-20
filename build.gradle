@@ -29,13 +29,19 @@ repositories {
 group 'de.sebastianboegl.gradle.plugins'
 
 // no real semantic versioning (the MAJOR version number correspond to the MAJOR shadow plugin version number)
-version "${shadowVersion}.1.1"
+version "${majorShadowVersion}.1.1"
+
+def shadowVersions = [
+    '1': '1.2.4',
+    '2': '2.0.2'
+]
+def shadowVersion = shadowVersions[majorShadowVersion]
 
 dependencies {
     compile gradleApi()
     compile localGroovy()
-    compile(group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.+')
-    compile "com.github.jengelman.gradle.plugins:shadow:${shadowVersion}.+"
+    compile(group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.10.0')
+    compile "com.github.jengelman.gradle.plugins:shadow:${shadowVersion}"
 
     testCompile gradleTestKit()
     testCompile ('org.spockframework:spock-core:1.0-groovy-2.4') {
