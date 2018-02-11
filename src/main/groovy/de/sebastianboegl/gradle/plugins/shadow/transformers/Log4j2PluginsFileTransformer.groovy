@@ -16,6 +16,7 @@
 
 package de.sebastianboegl.gradle.plugins.shadow.transformers
 
+import com.github.jengelman.gradle.plugins.shadow.ShadowStats
 import com.github.jengelman.gradle.plugins.shadow.relocation.RelocateClassContext
 import com.github.jengelman.gradle.plugins.shadow.relocation.Relocator
 import com.github.jengelman.gradle.plugins.shadow.transformers.Transformer
@@ -37,7 +38,7 @@ import static org.apache.logging.log4j.core.config.plugins.processor.PluginProce
 class Log4j2PluginsFileTransformer implements Transformer {
 
     private final ArrayList<File> tempFiles = new ArrayList<File>()
-    private final List<Relocator> relocators = new ArrayList<Relocator>()
+    private RelocatorStats relocatorStats
 
     @Override
     boolean canTransformResource(FileTreeElement fileTreeElement) {
@@ -54,15 +55,12 @@ class Log4j2PluginsFileTransformer implements Transformer {
             IOUtils.closeQuietly(fos)
         }
         tempFiles.add(tempFile)
-
-        if (this.relocators != null) {
-            this.relocators.addAll(context.relocators)
-        }
+        relocatorStats = new RelocatorStats(context.relocators, context.stats)
     }
 
     @Override
     boolean hasTransformedResource() {
-        return tempFiles.size() > 1 || (!tempFiles.isEmpty() && !relocators.isEmpty())
+        return tempFiles.size() > 1 || (!tempFiles.isEmpty() && relocatorStats.hasRelocators())
     }
 
     @Override
@@ -71,7 +69,7 @@ class Log4j2PluginsFileTransformer implements Transformer {
             PluginCache aggregator = new PluginCache()
             aggregator.loadCacheFiles(getUrls())
 
-            relocatePlugin(aggregator, relocators)
+            relocatePlugin(aggregator, relocatorStats)
 
             jos.putNextEntry(new ZipEntry(PLUGIN_CACHE_FILE))
             aggregator.writeCache(new CloseShieldOutputStream(jos))
@@ -80,12 +78,12 @@ class Log4j2PluginsFileTransformer implements Transformer {
         }
     }
 
-    static void relocatePlugin(PluginCache aggregator, List<Relocator> relocators) {
+    static void relocatePlugin(PluginCache aggregator, RelocatorStats relocatorStats) {
         for (Map.Entry<String, Map<String, PluginEntry>> categoryEntry : aggregator.getAllCategories().entrySet()) {
             for (Map.Entry<String, PluginEntry> pluginMapEntry : categoryEntry.getValue().entrySet()) {
                 PluginEntry pluginEntry = pluginMapEntry.getValue()
-                def context = RelocateClassContext.builder().className(pluginEntry.getClassName()).build()
-                Relocator matchingRelocator = findFirstMatchingRelocator(context, relocators)
+                def context = RelocateClassContext.builder().className(pluginEntry.getClassName()).stats(relocatorStats.stats).build()
+                Relocator matchingRelocator = findFirstMatchingRelocator(context, relocatorStats.relocators)
 
                 if (matchingRelocator != null) {
                     String newClassName = matchingRelocator.relocateClass(context)
@@ -112,5 +110,19 @@ class Log4j2PluginsFileTransformer implements Transformer {
             urls.add(url)
         }
         return Collections.enumeration(urls)
+    }
+
+    private class RelocatorStats {
+        final ShadowStats stats
+        final List<Relocator> relocators
+
+        RelocatorStats(List<Relocator> relocators, ShadowStats stats) {
+            this.stats = stats
+            this.relocators = relocators;
+        }
+
+        boolean hasRelocators() {
+            return !relocators.empty
+        }
     }
 }
