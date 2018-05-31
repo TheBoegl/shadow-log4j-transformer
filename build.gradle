@@ -128,7 +128,7 @@ publishPlugins.dependsOn build
 //createReleaseTag.dependsOn publish
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '4.4.1'
+    gradleVersion = gradle_Version
     distributionType = Wrapper.DistributionType.ALL
 }
 
