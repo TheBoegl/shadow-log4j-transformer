@@ -1,1 +1,2 @@
 rootProject.name = 'shadow-log4j-transformer'
+enableFeaturePreview('STABLE_PUBLISHING')

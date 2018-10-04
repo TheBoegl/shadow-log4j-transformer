@@ -33,7 +33,8 @@ version "${majorShadowVersion}.2.0"
 
 def shadowVersions = [
     '1': '1.2.3',
-    '2': '2.0.0'
+    '2': '2.0.0',
+    '4': '4.0.0'
 ]
 def shadowVersion = shadowVersions[majorShadowVersion]
 
@@ -127,7 +128,7 @@ publishPlugins.dependsOn build
 
 //createReleaseTag.dependsOn publish
 
-task wrapper(type: Wrapper) {
+wrapper {
     gradleVersion = gradle_Version
     distributionType = Wrapper.DistributionType.ALL
 }
