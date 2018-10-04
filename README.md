@@ -1,4 +1,10 @@
 # Log4j 2 Transformer implementation for Gradle Shadow Plugin
+**As of shadow plugin version 4.0.0 you don't need this transformer anymore and should use the provided transformer:**
+```
+shadowjar{
+  transform(com.github.jengelman.gradle.plugins.shadow.transformers.Log4j2PluginsCacheFileTransformer)
+}
+```
 
 A [shadow plugin](https://github.com/johnrengelman/shadow) transformer implementation for log4j to concatenate Log4j2Plugins.dat files.
 
