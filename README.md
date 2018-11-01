@@ -1,7 +1,7 @@
 ## Shadow Plugin 4.0.0 and later
 **As of shadow plugin version 4.0.0 you don't need this transformer anymore and should use the provided transformer:**
 ```
-shadowjar{
+shadowJar{
   transform(com.github.jengelman.gradle.plugins.shadow.transformers.Log4j2PluginsCacheFileTransformer)
 }
 ```
